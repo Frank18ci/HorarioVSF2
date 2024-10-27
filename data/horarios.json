@@ -1,0 +1,92 @@
+{
+    "turnos": [
+        {
+            "nombre": "sabado",
+            "horainicio": "06:00:00",
+            "tiempos": [
+                {
+                    "tiempo": "25",
+                    "texto": "Alabanza"
+                },
+                {
+                    "tiempo": "55",
+                    "texto": "Predica"
+                },
+                {
+                    "tiempo": "5",
+                    "texto": "Ofrenda"
+                },
+                {
+                    "tiempo": "5",
+                    "texto": "Anuncios"
+                }
+            ]
+        },
+        {
+            "nombre": "primero",
+            "horainicio": "9:30:00",
+            "tiempos": [
+                {
+                    "tiempo": "25",
+                    "texto": "Alabanza"
+                },
+                {
+                    "tiempo": "55",
+                    "texto": "Predica"
+                },
+                {
+                    "tiempo": "5",
+                    "texto": "Ofrenda"
+                },
+                {
+                    "tiempo": "5",
+                    "texto": "Anuncios"
+                }
+            ]
+        },
+        {
+            "nombre": "segundo",
+            "horainicio": "11:30:00",
+            "tiempos": [
+                {
+                    "tiempo": "25",
+                    "texto": "Alabanza"
+                },
+                {
+                    "tiempo": "55",
+                    "texto": "Predica"
+                },
+                {
+                    "tiempo": "5",
+                    "texto": "Ofrenda"
+                },
+                {
+                    "tiempo": "5",
+                    "texto": "Anuncios"
+                }
+            ]
+        },
+        {
+            "nombre": "tercero",
+            "horainicio": "18:00:00",
+            "tiempos": [
+                {
+                    "tiempo": "25",
+                    "texto": "Alabanza"
+                },
+                {
+                    "tiempo": "55",
+                    "texto": "Predica"
+                },
+                {
+                    "tiempo": "5",
+                    "texto": "Ofrenda"
+                },
+                {
+                    "tiempo": "5",
+                    "texto": "Anuncios"
+                }
+            ]
+        }
+    ]
+}
