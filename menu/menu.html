@@ -20,18 +20,14 @@
         <div class="box-s">
             <div class="box-s-t">
                 <p>Selecciona turno:</p>
-                <select>
-                    <option value="">Sabado</option>
-                    <option value="">Primero</option>
-                    <option value="">Segundo</option>
-                    <option value="">Tercero</option>
+                <select id="sltTurno">
                 </select>
                 <button class="btn-agregar">Agregar</button>
             </div>
             <div class="box-t-e">
                 <div>
                     <span>Inicio:</span>
-                    <input type="time" name="" id="">
+                    <input id="iptInicio" type="time" name="" id="">
                 </div>
                 <div>
                     <span>Fin:</span>
@@ -46,11 +42,11 @@
                 <div>
                     <button class="btn-a">Actualizar</button>
                     <button class="btn-d">Defecto</button>
-                    <button class="btn-o">Abrir Ventana</button>
+                    <button class="btn-o" id="btnAbrirVentana">Abrir Ventana</button>
                 </div>
             </div>
             <div class="box-t">
-                <table>
+                <table class="tablaControl">
                     <thead>
                         <tr>
                             <th>Texto</th>
@@ -86,5 +82,8 @@
     <footer>
 
     </footer>
+    <script src="menu.js">
+    </script>
+    
 </body>
 </html>

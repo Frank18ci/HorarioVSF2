@@ -24,7 +24,7 @@
         },
         {
             "nombre": "primero",
-            "horainicio": "9:30:00",
+            "horainicio": "09:30:00",
             "tiempos": [
                 {
                     "tiempo": "25",
