@@ -22,7 +22,14 @@
                 <p>Selecciona turno:</p>
                 <select id="sltTurno">
                 </select>
-                <button class="btn-agregar">Agregar</button>
+                <button class="btn-agregar" id="btnAgregar">Agregar</button>
+                <div class="extraAgregar box-nombre">
+                    <label>Nombre: </label>
+                    <input type="text" class="iptNombre">
+                </div>
+                <button class="extraAgregar btn-agregar" id="btnConfirmar">Confirmar</button>
+                <button class="extraAgregar" id="btnCancelar">Cancelar</button>
+                <button class="btn-agregar" id="btnEliminar">Eliminar</button>
             </div>
             <div class="box-t-e">
                 <div>
@@ -31,7 +38,7 @@
                 </div>
                 <div>
                     <span>Fin:</span>
-                    <input disabled type="time" name="" id="">
+                    <input disabled  type="time" name="" id="iptFin">
                 </div>
             </div>
         </div>
@@ -54,25 +61,7 @@
                             <th>Opciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input class="inpTexto" type="text" name="" id="" value="Empezamos en:"> 
-                            </td>
-                            <td>
-                                <input type="number" name="" id="">
-                            </td>
-                            <td>
-                                <button class="btn-et">
-                                    Eliminar
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="td-a" colspan="3">
-                                <button>agregar</button>
-                            </td>
-                        </tr>
+                    <tbody class="tBodyTablaControl">
                     </tbody>
                 </table>
             </div>
@@ -82,6 +71,7 @@
     <footer>
 
     </footer>
+    <script src="../data/horarios.js"></script>
     <script src="menu.js">
     </script>
     

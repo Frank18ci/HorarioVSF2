@@ -131,6 +131,15 @@ input, select, button{
     margin: 1rem;
     
 }
+.box-nombre{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.extraAgregar{
+    display: none;
+}
 table{
     width: 100%;
     border-collapse: collapse;
