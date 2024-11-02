@@ -39,17 +39,30 @@ function formatoHora(t) {
 const textoP = document.getElementById("textoP")
 const textoH = document.getElementById("textoH")
 let horario = obtenerHorarioJSON();
+let i = 0;
 setInterval(() => {
-  let i = 1;
   const time = new Date();
+  time.setHours(6)
+  time.setMinutes(55)
   let hora = formatoHora(time.getHours());
 
   let minuto = formatoHora(time.getMinutes());
 
   let segundo = formatoHora(time.getSeconds());
+  
   let tiempo = hora + ":" + minuto + ":" + segundo
   
-  colocarTextoyHora(horario.tiempos[i].texto, getDiferenciaTiempo(tiempo, sumaHoras(horario.horainicio, horario.tiempos[i].tiempo)));
+
+  let texto = horario.tiempos[i].texto;
+  
+  let diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horario.horainicio, horario.tiempos[i].tiempo), tiempo)
+  if(diferenciaTiempo == 0){
+    i++;
+    texto = horario.tiempos[i].texto;
+    let horarioAnterior = sumaHoras(horario.horainicio, horario.tiempos[i - 1].tiempo)
+    diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horarioAnterior, horario.tiempos[i].tiempo), tiempo)
+  }
+  colocarTextoyHora(texto, diferenciaTiempo);
   let tiempoCorto = hora + ":" + minuto;
 
 
@@ -90,13 +103,17 @@ function convertirSegundos(t){
 function desconvertirSegundos(t){
   let horasN = Math.floor(t / 3600);
   let minutosN = Math.floor((t % 3600) / 60);
+  
   let segundosN = t % 60;
   return convierte1a2(horasN) + ":" + convierte1a2(minutosN) + ":" + convierte1a2(segundosN)
 }
-
 function getDiferenciaTiempo(t1, t2){
+  console.log(t1, t2)
   let s1 = convertirSegundos(t1);
   let s2 = convertirSegundos(t2);
   let resta = s1 - s2;
+  if(resta < 0){
+    return 0;
+  }
   return desconvertirSegundos(resta);
 }
