@@ -21,30 +21,8 @@ function guardarJSON(horarios) {
 let horariosJSON = {
     "turnos": [
         {
-            "nombre": "sabado",
-            "horainicio": "06:00:00",
-            "tiempos": [
-                {
-                    "tiempo": "25",
-                    "texto": "Alabanza"
-                },
-                {
-                    "tiempo": "55",
-                    "texto": "Predica"
-                },
-                {
-                    "tiempo": "5",
-                    "texto": "Ofrenda"
-                },
-                {
-                    "tiempo": "5",
-                    "texto": "Anuncios"
-                }
-            ]
-        },
-        {
             "nombre": "primero",
-            "horainicio": "09:30:00",
+            "horainicio": "08:00:00",
             "tiempos": [
                 {
                     "tiempo": "25",
@@ -66,7 +44,7 @@ let horariosJSON = {
         },
         {
             "nombre": "segundo",
-            "horainicio": "11:30:00",
+            "horainicio": "11:45:00",
             "tiempos": [
                 {
                     "tiempo": "25",
@@ -89,6 +67,28 @@ let horariosJSON = {
         {
             "nombre": "tercero",
             "horainicio": "18:00:00",
+            "tiempos": [
+                {
+                    "tiempo": "25",
+                    "texto": "Alabanza"
+                },
+                {
+                    "tiempo": "55",
+                    "texto": "Predica"
+                },
+                {
+                    "tiempo": "5",
+                    "texto": "Ofrenda"
+                },
+                {
+                    "tiempo": "5",
+                    "texto": "Anuncios"
+                }
+            ]
+        },
+        {
+            "nombre": "sabado",
+            "horainicio": "06:00:00",
             "tiempos": [
                 {
                     "tiempo": "25",

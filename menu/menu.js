@@ -21,18 +21,9 @@ const sltTurno = document.getElementById('sltTurno');
 const horarios = document.getElementById('tablaControl');
 
 const iptInicio = document.getElementById('iptInicio')
-setearHorarios();
 
-name();
-function name() {
-    const horarios = obtenerJSON();
-    generarComboBox(horarios);
-    generarTabla(horarios)
-    cargaPrimerTurno(horarios);
-    sltTurno.addEventListener('change', () => { changeSelect(horarios) })
-    btnAbrirVentana.addEventListener('click', () => { openWindow(horarioSeleccionado(horarios))});
-    btnEliminar.addEventListener('click', () => { btnEliminarHorario(horarios) } )
-}
+
+
 function sumarTiempo(){
     let tiempos = document.getElementsByClassName('tiempo');
     let suma = 0;
@@ -183,22 +174,30 @@ function cargarHoraFin(){
 }
 
 function sumaHoras(h1, minutos){
-    
     let valores = h1.split(":")
-    let hora =  parseInt(valores[0])
-    let minuto = parseInt(valores[1]) + minutos
-    let segundos = parseInt(valores[2]) 
-    let totalSegundos = (hora * 3600) + (minuto * 60) + segundos;
-    let horasN = Math.floor(totalSegundos / 3600);
-    let minutosN = Math.floor((totalSegundos % 3600) / 60);
-    let segundosN = totalSegundos % 60;
-    return convierte1a2(horasN) + ":" + convierte1a2(minutosN) + ":" + convierte1a2(segundosN)
+    if(valores.length == 3){
+        let hora =  parseInt(valores[0])
+        let minuto = parseInt(valores[1]) + minutos
+        let segundos = parseInt(valores[2]) 
+        let totalSegundos = (hora * 3600) + (minuto * 60) + segundos;
+        let horasN = Math.floor(totalSegundos / 3600);
+        let minutosN = Math.floor((totalSegundos % 3600) / 60);
+        let segundosN = totalSegundos % 60;
+        return convierte1a2(horasN) + ":" + convierte1a2(minutosN) + ":" + convierte1a2(segundosN)    
+    } else if(valores.length == 2){
+        let hora =  parseInt(valores[0])
+        let minuto = parseInt(valores[1]) + minutos
+        let totalSegundos = (hora * 3600) + (minuto * 60);
+        let horasN = Math.floor(totalSegundos / 3600);
+        let minutosN = Math.floor((totalSegundos % 3600) / 60);
+        return convierte1a2(horasN) + ":" + convierte1a2(minutosN) + ":00"    
+    }
+    
     
 }
 
 
 
-cargarHoraFin()
 
 function convierte1a2(n) {
     let nN = n.toString();
@@ -210,3 +209,49 @@ function btnEliminarHorario(horarios ){
     generarComboBox(obtenerJSON())
     generarTabla(obtenerJSON())
 }
+
+
+const btnActualizar = document.getElementById('btnActualizar');
+const btnDefecto = document.getElementById('btnDefecto');
+cargarTodo()
+function cargarTodo(){
+    const horarios = obtenerJSON();
+    generarComboBox(horarios);
+    generarTabla(horarios)
+    cargaPrimerTurno(horarios);
+    sltTurno.addEventListener('change', () => { changeSelect(horarios) })
+    btnAbrirVentana.addEventListener('click', () => { openWindow(horarioSeleccionado(horarios))});
+    btnEliminar.addEventListener('click', () => { btnEliminarHorario(horarios) } )
+    cargarHoraFin()
+    
+}
+btnDefecto.addEventListener('click', establecerDefecto)
+function establecerDefecto(){
+    setearHorarios()
+    cargarTodo()
+}
+btnActualizar.addEventListener('click', actualizarHorarios)
+
+function actualizarHorarios(){
+    let horarios = obtenerJSON()
+    horarios.turnos[sltTurno.value].horainicio = sumaHoras(iptInicio.value, 0);
+    horarios.turnos[sltTurno.value].tiempos = crearTurnos()
+    guardarJSON(horarios)
+    setearHorario(horarios.turnos[sltTurno.value]);
+}
+
+function crearTurnos(){
+    let textos = document.getElementsByClassName('inpTexto');
+    let tiempos = document.getElementsByClassName('tiempo');
+    let horariosN = [];
+    for(let i = 0; i < textos.length; i++){
+        horariosN.push( 
+            {
+                tiempo: tiempos[i].value,
+                texto: textos[i].value
+            })
+        
+    }
+    return horariosN
+}
+
