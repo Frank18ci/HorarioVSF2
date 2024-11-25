@@ -40,6 +40,7 @@ header{
 }
 body{
     background-color: var(--color-g3);
+    
 }
 main{
     padding: 1rem;
@@ -140,9 +141,14 @@ input, select, button{
 .extraAgregar{
     display: none;
 }
+.box-t{
+    display: flex;
+    justify-content: center;
+}
 table{
     width: 100%;
     border-collapse: collapse;
+    
 }
 thead{
     background-color: var(--color-a2);

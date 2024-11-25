@@ -35,14 +35,15 @@ setInterval(() => {
     j = false;
   }
 
-  if (diferenciaTiempo === "00:00:00") {
+  if (diferenciaTiempo === "00:00" || diferenciaTiempo === "00:00:00") {
     i++;
     if (i < horario.tiempos.length) {
       texto = horario.tiempos[i].texto;
       horarioAnterior = sumaHoras(horarioAnterior, horario.tiempos[i - 1].tiempo);
       diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horarioAnterior, horario.tiempos[i].tiempo), tiempo);
     } else {
-      clearInterval();
+      texto = "Tiempo fuera"
+      diferenciaTiempo = ""
     }
   } else {
     diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horarioAnterior, horario.tiempos[i].tiempo), tiempo);
@@ -88,15 +89,17 @@ function convertirSegundos(t) {
 
 function desconvertirSegundos(t) {
   let horasN = Math.floor(t / 3600);
+  console.log(horasN == 0)
   let minutosN = Math.floor((t % 3600) / 60);
   let segundosN = t % 60;
-  return convierte1a2(horasN) + ":" + convierte1a2(minutosN) + ":" + convierte1a2(segundosN);
+  return horasN != 0 ? convierte1a2(horasN) + ":" + convierte1a2(minutosN) + ":" + convierte1a2(segundosN) : convierte1a2(minutosN) + ":" + convierte1a2(segundosN);
 }
 
 function getDiferenciaTiempo(t1, t2) {
   let s1 = convertirSegundos(t1);
   let s2 = convertirSegundos(t2);
   let resta = s1 - s2;
+  
   if (resta < 0) {
     return "00:00:00";
   }

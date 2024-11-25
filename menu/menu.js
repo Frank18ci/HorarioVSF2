@@ -28,9 +28,19 @@ function sumarTiempo(){
     let tiempos = document.getElementsByClassName('tiempo');
     let suma = 0;
     for(let i = 0; tiempos.length > i ; i++){
+        
         suma += parseInt(tiempos[i].value);
     }
     return suma;
+}
+function cargarHoraUnitaria(){
+    let tiempos = document.getElementsByClassName('tiempo');
+    let inputTiempo = document.getElementsByClassName('tiempo_parte_final');
+    let suma = 0
+    for(let i = 0; tiempos.length > i ; i++){
+        suma += parseInt(tiempos[i].value)
+        inputTiempo[i].value = sumaHoras(iptInicio.value, suma)
+    }   
 }
 function generarTabla(horarios) {
     const selectedIndex = sltTurno.value;
@@ -48,6 +58,7 @@ function generarTabla(horarios) {
         input1.value = i.texto;
         input1.addEventListener('keypress', () =>{
             cargarHoraFin();
+            cargarHoraUnitaria()
         })
         td1.appendChild(input1)
         tr.appendChild(td1)
@@ -55,13 +66,28 @@ function generarTabla(horarios) {
         let td2 = document.createElement('td')
         let input2 = document.createElement('input')
         input2.type = "number"
+        input2.setAttribute("min", 0)
+        input2.setAttribute("max", 1000)
         input2.value = i.tiempo;
         input2.className = "tiempo"
-        input2.addEventListener('keypress', () =>{
+        input2.addEventListener('input', () =>{
             cargarHoraFin();
+            cargarHoraUnitaria()
+            
         })
         td2.appendChild(input2)
         tr.appendChild(td2)
+        
+
+        let td2_1 = document.createElement('td')
+        let input2_1 = document.createElement('input')
+        input2_1.type = "time"
+        input2_1.disabled = "disabled"
+        input2_1.className ="tiempo_parte_final"
+
+        td2_1.appendChild(input2_1)
+        tr.appendChild(td2_1)
+
 
         let td3 = document.createElement('td')
         let btnElimar = document.createElement('button')
@@ -78,7 +104,7 @@ function generarTabla(horarios) {
     let tr2 = document.createElement('tr')
     let td22 = document.createElement('td')
     td22.className = "td-a btnCampoNuevo"
-    td22.setAttribute('colspan', 3)
+    td22.setAttribute('colspan', 4)
     let btn22 = document.createElement('button')
     btn22.innerHTML = "agregar"
     td22.appendChild(btn22)
@@ -89,6 +115,7 @@ function generarTabla(horarios) {
     })
 }
 function eliminarCampo(horarios, selectedIndex, indice){
+    horarios = obtenerJSON();
     let turno = horarios.turnos[selectedIndex]
     console.log(indice)
     turno.tiempos.splice(indice,1)
@@ -96,6 +123,7 @@ function eliminarCampo(horarios, selectedIndex, indice){
     generarTabla(obtenerJSON())
 }
 function generarCampo(horarios, selectedIndex){
+    horarios = obtenerJSON();
     let CampoNew = {
         "tiempo": "0",
         "texto": "Pon Texto"
@@ -127,6 +155,7 @@ function changeSelect(horarios) {
     iptInicio.value = horarios.turnos[sltV].horainicio;
     generarTabla(horarios);
     cargarHoraFin();
+    cargarHoraUnitaria()
 }
 
 const btnAgregar = document.querySelector('#btnAgregar');
@@ -158,11 +187,13 @@ btnConfirmar.addEventListener('click', () => {
         horarios.turnos.push(horario);
         console.log(horarios)
         guardarJSON(horarios);
-        name();
+        
         boxNombre.className = "extraAgregar box-nombre"
         iptNombre.value = ""
         btnCancelar.className = "extraAgregar"
         btnConfirmar.className = "extraAgregar"
+        actualizarHorarios()
+        generarComboBox(obtenerJSON())
     }
 })
 const iptFin = document.querySelector("#iptFin")
@@ -191,6 +222,8 @@ function sumaHoras(h1, minutos){
         let horasN = Math.floor(totalSegundos / 3600);
         let minutosN = Math.floor((totalSegundos % 3600) / 60);
         return convierte1a2(horasN) + ":" + convierte1a2(minutosN) + ":00"    
+    } else{
+        console.log(this)
     }
     
     
@@ -213,18 +246,27 @@ function btnEliminarHorario(horarios ){
 
 const btnActualizar = document.getElementById('btnActualizar');
 const btnDefecto = document.getElementById('btnDefecto');
-cargarTodo()
 function cargarTodo(){
-    const horarios = obtenerJSON();
+    
+    let horarios = obtenerJSON();
     generarComboBox(horarios);
     generarTabla(horarios)
     cargaPrimerTurno(horarios);
-    sltTurno.addEventListener('change', () => { changeSelect(horarios) })
+    sltTurno.addEventListener('change', () => { changeSelect(obtenerJSON())})    
     btnAbrirVentana.addEventListener('click', () => { openWindow(horarioSeleccionado(horarios))});
     btnEliminar.addEventListener('click', () => { btnEliminarHorario(horarios) } )
     cargarHoraFin()
+    cargarHoraUnitaria()
     
 }
+cargadoInicial()
+function cargadoInicial(){
+    if(obtenerJSON() != null){
+        cargarTodo();    
+    }
+}
+
+
 btnDefecto.addEventListener('click', establecerDefecto)
 function establecerDefecto(){
     setearHorarios()
@@ -236,8 +278,11 @@ function actualizarHorarios(){
     let horarios = obtenerJSON()
     horarios.turnos[sltTurno.value].horainicio = sumaHoras(iptInicio.value, 0);
     horarios.turnos[sltTurno.value].tiempos = crearTurnos()
+    cargarHoraFin()
+    cargarHoraUnitaria()
     guardarJSON(horarios)
     setearHorario(horarios.turnos[sltTurno.value]);
+    console.log(obtenerJSON())
 }
 
 function crearTurnos(){

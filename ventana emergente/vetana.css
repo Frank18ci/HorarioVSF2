@@ -22,7 +22,7 @@
     color: white;
 }
 .box-tp{
-    margin-top: 5rem;
+    margin-top: 12rem;
     width: 100%;
     text-align: center;
 }
@@ -36,7 +36,7 @@
     display: flex;
     align-content: center;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     margin: 1rem;
     font-size: 6rem;
 }
