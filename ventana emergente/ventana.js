@@ -4,12 +4,14 @@ const textoH = document.getElementById("textoH");
 
 let horario = obtenerHorarioJSON();
 let i = 0;
-let j = true;
+let isFirstReadHorario = true;
 let diferenciaTiempo;
 let horarioAnterior = horario.horainicio;
 let horarioString = JSON.stringify(horario);
 
-
+  // algoritmo para calcular el cambio de hora en cada determinado momento lo hace convertiendo
+  // el tiempo a segundos, trae los datos de la otra ventana y realiza el calculo mediante un archivo 
+  // temporal
 setInterval(() => {
   let horario2 = obtenerHorarioJSON() 
   let horario2String = JSON.stringify(horario2);
@@ -17,7 +19,7 @@ setInterval(() => {
     horario = horario2;
     horarioString = horario2String;
     i = 0;
-    j = true;
+    isFirstReadHorario = true;
     diferenciaTiempo = null;
     horarioAnterior = horario.horainicio;
   }
@@ -30,14 +32,16 @@ setInterval(() => {
   
   let texto = horario.tiempos[i].texto;
 
-  if (j) {
+  if (isFirstReadHorario) {
     diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horarioAnterior, horario.tiempos[i].tiempo), tiempo);
-    j = false;
+    isFirstReadHorario = false;
   }
 
   if (diferenciaTiempo === "00:00" || diferenciaTiempo === "00:00:00") {
     i++;
-    if (i < horario.tiempos.length) {
+    if (i < horario.tiempos.length - 1) {
+      
+      console.log({horario, i})
       texto = horario.tiempos[i].texto;
       horarioAnterior = sumaHoras(horarioAnterior, horario.tiempos[i - 1].tiempo);
       diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horarioAnterior, horario.tiempos[i].tiempo), tiempo);
@@ -46,11 +50,18 @@ setInterval(() => {
       diferenciaTiempo = ""
     }
   } else {
-    diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horarioAnterior, horario.tiempos[i].tiempo), tiempo);
+    if (i < horario.tiempos.length - 1) {
+      diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horarioAnterior, horario.tiempos[i].tiempo), tiempo);
+    }
+    else {
+      texto = "Tiempo fuera"
+      diferenciaTiempo = ""
+    }
   }
 
   colocarTextoyHora(texto, diferenciaTiempo);
   spanHora.textContent = `${hora}:${minuto}`;
+  console.log("ejecucion intervalo")
 }, 1000);
 
 function formatoHora(t) {

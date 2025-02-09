@@ -133,18 +133,24 @@ function generarCampo(horarios, selectedIndex){
     guardarJSON(horarios)
     generarTabla(obtenerJSON())
 }
+
 function generarComboBox(horarios) {
 
     let i = 0;
     sltTurno.innerHTML = ""
-    horarios.turnos.forEach(e => {
-        let option = document.createElement('option');
-        option.value = i;
-        option.textContent = e.nombre;
-
-        sltTurno.appendChild(option);
-        i++;
-    });
+    try{
+        horarios.turnos.forEach(e => {
+            let option = document.createElement('option');
+            option.value = i;
+            option.textContent = e.nombre;
+    
+            sltTurno.appendChild(option);
+            i++;
+        });
+    } catch{
+        setearHorarios()
+    }
+    
 
 }
 function cargaPrimerTurno(horarios) {

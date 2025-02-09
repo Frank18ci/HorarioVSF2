@@ -13,6 +13,7 @@ function setearHorarios() {
     localStorage.setItem("horarios", JSON.stringify(horariosJSON))
 }
 function obtenerJSON() {
+    
     return JSON.parse(localStorage.getItem("horarios"));
 }
 function guardarJSON(horarios) {
