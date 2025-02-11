@@ -204,3 +204,20 @@ td input{
     justify-content: center;
     font-size: 1.1rem;
 }
+
+
+
+
+.btn{
+    padding: 0.25em 1em !important;
+    font-weight: bold !important;
+    font-size: 1.05rem;
+}
+
+.select-turno{
+    padding-top: 0.25em;
+    padding-bottom: .25em;
+    padding-right: 2em;
+    text-align: left;
+    text-transform: uppercase;
+}

@@ -9,16 +9,19 @@ let diferenciaTiempo;
 let horarioAnterior = horario.horainicio;
 let horarioString = JSON.stringify(horario);
 
+let tiempoRecorrido = 0
   // algoritmo para calcular el cambio de hora en cada determinado momento lo hace convertiendo
   // el tiempo a segundos, trae los datos de la otra ventana y realiza el calculo mediante un archivo 
   // temporal
 setInterval(() => {
   let horario2 = obtenerHorarioJSON() 
   let horario2String = JSON.stringify(horario2);
+  
   if(horarioString != horario2String){
     horario = horario2;
     horarioString = horario2String;
     i = 0;
+    tiempoRecorrido = 0
     isFirstReadHorario = true;
     diferenciaTiempo = null;
     horarioAnterior = horario.horainicio;
@@ -29,39 +32,41 @@ setInterval(() => {
   let minuto = formatoHora(time.getMinutes());
   let segundo = formatoHora(time.getSeconds());
   let tiempo = `${hora}:${minuto}:${segundo}`;
-  
-  let texto = horario.tiempos[i].texto;
 
-  if (isFirstReadHorario) {
-    diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horarioAnterior, horario.tiempos[i].tiempo), tiempo);
-    isFirstReadHorario = false;
+  textoP.style = "font-size: 5rem"
+  let texto = ""
+  
+  if(i < horario.tiempos.length){
+     texto = horario.tiempos[i].texto;
   }
 
-  if (diferenciaTiempo === "00:00" || diferenciaTiempo === "00:00:00") {
+  tiempoRecorrido = 0
+  for(let j = 0; j <= i; j++){
+    console.log("intervalo " + j, i)
+    if(i < horario.tiempos.length){
+      tiempoRecorrido += parseInt(horario.tiempos[j].tiempo)
+    }
+  }
+  
+  diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horarioAnterior, tiempoRecorrido), tiempo);
+
+  
+  if (diferenciaTiempo === "00:00" || diferenciaTiempo === "00:00:00"){
     i++;
-    if (i < horario.tiempos.length - 1) {
-      
-      console.log({horario, i})
-      texto = horario.tiempos[i].texto;
-      horarioAnterior = sumaHoras(horarioAnterior, horario.tiempos[i - 1].tiempo);
-      diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horarioAnterior, horario.tiempos[i].tiempo), tiempo);
-    } else {
-      texto = "Tiempo fuera"
-      diferenciaTiempo = ""
-    }
-  } else {
-    if (i < horario.tiempos.length - 1) {
-      diferenciaTiempo = getDiferenciaTiempo(sumaHoras(horarioAnterior, horario.tiempos[i].tiempo), tiempo);
-    }
-    else {
-      texto = "Tiempo fuera"
-      diferenciaTiempo = ""
-    }
+  }
+    
+
+  if(horario.tiempos.length <= i){
+    textoP.style = "font-size: 12rem"
+    texto = "Tiempo fuera"
+    diferenciaTiempo = ""
   }
 
   colocarTextoyHora(texto, diferenciaTiempo);
-  spanHora.textContent = `${hora}:${minuto}`;
-  console.log("ejecucion intervalo")
+  spanHora.textContent = ` ${hora}:${minuto}`;
+
+
+  
 }, 1000);
 
 function formatoHora(t) {
@@ -86,9 +91,7 @@ function sumaHoras(h1, minutos) {
   return convierte1a2(horasN) + ":" + convierte1a2(minutosN) + ":" + convierte1a2(segundosN);
 }
 
-function convierte1a2(n) {
-  return n < 10 ? "0" + n : n.toString();
-}
+const convierte1a2 = n =>  n < 10 ? "0" + n : n.toString();
 
 function convertirSegundos(t) {
   let valores = t.split(":");
@@ -100,7 +103,6 @@ function convertirSegundos(t) {
 
 function desconvertirSegundos(t) {
   let horasN = Math.floor(t / 3600);
-  console.log(horasN == 0)
   let minutosN = Math.floor((t % 3600) / 60);
   let segundosN = t % 60;
   return horasN != 0 ? convierte1a2(horasN) + ":" + convierte1a2(minutosN) + ":" + convierte1a2(segundosN) : convierte1a2(minutosN) + ":" + convierte1a2(segundosN);
