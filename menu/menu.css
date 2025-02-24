@@ -48,14 +48,20 @@ main{
 .logo{
     width: 10%;
 }
+
+.box-s{
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 .box-s-t{
     margin-bottom: 0.5rem;
 }
-.box-s{
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
+.box-t-e input{
+    font-size: 1em !important;
+    margin-bottom: 1rem;
 }
 .box-t-e{
     display: flex;
@@ -69,7 +75,7 @@ main{
     flex-wrap: wrap;
 }
 input, select, button{
-    padding: 0.2rem;
+    padding: 0.4rem;
     margin: 0 0.1rem;
     border: 1px solid #ced4da;
     border-radius: 5px;
@@ -220,4 +226,18 @@ td input{
     padding-right: 2em;
     text-align: left;
     text-transform: uppercase;
+}
+
+
+/* Section buttons */
+
+.btn-agregar-tiempo{
+    color: white !important;
+    text-transform: uppercase;
+    box-shadow: 0 0 5px #00000032;
+    background-color: hsl(220, 40%, 30%) !important;
+    transition: background-color 1s ease;
+}
+.btn-agregar-tiempo:hover{
+    background-color: hsl(220, 50%, 45%) !important;
 }

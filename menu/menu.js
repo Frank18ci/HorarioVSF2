@@ -106,6 +106,7 @@ function generarTabla(horarios) {
     td22.className = "td-a btnCampoNuevo"
     td22.setAttribute('colspan', 4)
     let btn22 = document.createElement('button')
+    btn22.classList.add('btn-agregar-tiempo')
     btn22.innerHTML = "agregar"
     td22.appendChild(btn22)
     tr2.appendChild(td22)
